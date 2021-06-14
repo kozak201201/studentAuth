@@ -8,3 +8,5 @@ router.post('/registration',[
     check('email', 'Invalid email').isEmail(),
     check('password', 'Pussword must be more then 5 symbols').isLength({min: 6})
 ], controller.registration);
+
+module.exports = router;

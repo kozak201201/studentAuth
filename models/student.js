@@ -10,6 +10,11 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
+    roles:[{
+        type: String,
+        unique: true,
+        ref: 'Role'
+    }]
 });
 
 const Student = model('Student', studentSchema);
