@@ -5,7 +5,11 @@ const studentSchema = new Schema({
         type: String,
         unique: true,
         required: true
-    }
+    },
+    password: {
+        type: String,
+        required: true
+    },
 });
 
 const Student = model('Student', studentSchema);

@@ -4,10 +4,10 @@ const roleSchema = new Schema({
     value: {
         type: String,
         unique: true,
-        default: 'STUDENT'
+        default: 'Student'
     }
 });
 
-const Role = model('ROLE', roleSchema);
+const Role = model('ROle', roleSchema);
 
 module.exports = Role;
