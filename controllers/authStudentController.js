@@ -3,14 +3,23 @@ const Role = require('../models/role');
 const bcrypt = require('bcryptjs');
 
 const authStudentController = {
-    registration: function(req, res) {
-        const studentRole = new Role({value: 'Student'});
-        const adminRole = new Role({value: 'Admin'});
-        // const {email, password} = req.body;
+    registration: async function(req, res) {
 
-        // if (Student.findOne({email})) return res.sendStatus(409);
+        const {email, password} = req.body;
+        const candidat = await Student.findOne({email});
+
+        if (candidat) return res.status(409).send({message: 'User with this mail is already exist'});
         
-        // const hashPass = bcrypt.hashSync(password, 4);
+        const hashPassword = bcrypt.hashSync(password, 4);
+        const userRole = await Role.findOne({value: `Student`});
+
+        Student.create({email, password: hashPassword, roles: [userRole.value]})
+        .then(() => {
+            res.sendStatus(201);
+        }).catch(err => {
+            console.log(err);
+            res.status(404).send(err);
+        })
     }
 }
 
