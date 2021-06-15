@@ -32,9 +32,14 @@ const authStudentController = {
 
         if (!isValidPassword) return res.status(400).send({message: 'Error: Invalid password'});
 
-        const token = jwt.sign({email: student.email, courses: student.courses, roles: student.roles}, 
+        const token = jwt.sign({email: student.email, roles: student.roles}, 
             process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'});
         res.status(200).send({token});
+    },
+    getCourses: async function(req, res) {
+        const user = req.user;
+        const courses = Student.find({user}, {courses: 1});
+        res.json(courses);
     }
 }
 
