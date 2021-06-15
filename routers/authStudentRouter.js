@@ -1,6 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/authStudentController');
 const { check } = require('express-validator');
+const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -11,6 +12,6 @@ router.post('/registration',[
 
 router.post('/login', controller.login);
 
-router.get('/courses', controller.getCourses);
+router.get('/courses', authMiddleware, controller.getCourses);
 
 module.exports = router;

@@ -33,13 +33,13 @@ const authStudentController = {
         if (!isValidPassword) return res.status(400).send({message: 'Error: Invalid password'});
 
         const token = jwt.sign({email: student.email, roles: student.roles}, 
-            process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'});
+            process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15s'});
         res.status(200).send({token});
     },
     getCourses: async function(req, res) {
         const user = req.user;
-        const courses = Student.find({user}, {courses: 1});
-        res.json(courses);
+        const courses = await Student.find({email: user.email}, {courses: 1});
+        res.send(courses);
     }
 }
 
