@@ -9,4 +9,6 @@ router.post('/registration',[
     check('password', 'Pussword must be more then 5 symbols').isLength({min: 6})
 ], controller.registration);
 
+router.post('/login', controller.login);
+
 module.exports = router;
