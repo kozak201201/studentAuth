@@ -28,12 +28,12 @@ const authStudentController = {
 
         if (!student) return res.sendStatus(404);
 
-        const hashPassword = bcrypt.hashSync(password, 4);
-        const isValidPassword = bcrypt.compareSync(password, hashPassword);
+        const isValidPassword = await bcrypt.compareSync(password, student.password);
 
         if (!isValidPassword) return res.status(400).send({message: 'Error: Invalid password'});
 
-        const token = jwt.sign({email: student.email, roles: student.roles}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'});
+        const token = jwt.sign({email: student.email, courses: student.courses, roles: student.roles}, 
+            process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'});
         res.status(200).send({token});
     }
 }
