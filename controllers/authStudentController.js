@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 
 const authStudentController = {
     registration: async function(req, res) {
-
         const {email, password} = req.body;
         const candidat = await Student.findOne({email});
 
@@ -20,7 +19,7 @@ const authStudentController = {
             console.log(err);
             res.status(404).send(err);
         })
-    }
+    },
 }
 
 module.exports = authStudentController;

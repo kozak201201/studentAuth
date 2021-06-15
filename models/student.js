@@ -10,7 +10,12 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
-    roles:[{
+    courses: [{
+        type: String,
+        unique: true,
+        ref: 'Course'
+    }],
+    roles: [{
         type: String,
         unique: true,
         ref: 'Role'
